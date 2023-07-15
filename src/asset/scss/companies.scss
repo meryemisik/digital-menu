@@ -1,0 +1,63 @@
+.company{
+    
+    &-page {
+        display: flex;
+        gap: 20px;
+        flex-direction: column;
+        &-title {
+            margin-bottom: 0 !important;
+            font-size: 15px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        a{
+            text-decoration: none;
+        }
+
+        .card {
+            display: flex;
+            align-items: center;
+            height: 4rem;
+            cursor: pointer;
+            flex-direction: row;
+            gap: 20px;
+
+            &-body {
+                flex: 0 !important;
+                padding: 5px 0 !important;
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                background: rgba(0,0,0,0.5);
+                color: white;
+                text-align: center;
+            }
+            &-text{
+                font-size: 12px;
+            }
+    
+          
+    
+    
+            &-img-top {
+                max-width: 100px;
+            }
+        }
+    }
+    &-title{
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 20px;
+        margin: 10px 0;
+        color: rgb(236, 236, 245);
+    }
+    &-header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+  
+      
+}

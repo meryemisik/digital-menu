@@ -1,0 +1,48 @@
+body{background: #edf4f5;}
+.categories{
+//    display: flex;
+//    gap: 30px;
+//     margin: auto;
+//     flex-wrap: wrap;
+    &-title{
+        margin-bottom: 0 !important;
+        font-size: 15px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    &-content{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    &-page{
+        display: flex;
+        gap: 20px;
+        &-title{
+           
+        }
+    }
+    .card{
+        width: 20%;
+        position: relative;
+        &-title{
+            position: absolute;
+            bottom: 0;
+            background-color: #3049565c;
+            width: 100%;
+            color: white;
+            font-size: 16px !important;
+            padding: 5px;
+            margin-bottom: 0 !important;
+            
+        }:hover{
+            cursor: pointer;
+        }
+        &-img-top{
+            // height: 100%;
+            &:hover{
+                cursor: pointer;
+               
+            }
+        }
+    }
+}
