@@ -1,9 +1,11 @@
 'use client'
 import { useState, useEffect, ChangeEvent } from 'react'
-import { Button, Card, Image, Container, Row, Col, Modal, Navbar, Form, FloatingLabel } from 'react-bootstrap'
+import { Button, Card, Container, Row, Col, Modal, Navbar, Form, FloatingLabel } from 'react-bootstrap'
+import Image from "next/image";
 import { db, collection, getDocs, addDoc, getFirestore } from '../firebase-config'
 import Link from 'next/link';
 import Loading from './components/loading'
+import plus from '../asset/images/plus.svg'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../asset/scss/companies.scss'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
@@ -12,15 +14,13 @@ import 'sweetalert2/src/sweetalert2.scss'
 
 export default function Home() {
 
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<any[]>([]);
   const [showAddCompanyModal, setAddCompanyShowModal] = useState(false);
-  const [showAddCategoryModal, setAddCategoryShowModal] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [content, setContent] = useState('');
   const [companyName, setCompanyName] = useState('');
-  const [categoryName, setCategoryName] = useState('');
-  const [selectedFile, setSelectedFile] = useState<File | null>(null); // File türünü burada belirtiyoruz
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [base64Data, setBase64Data] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
@@ -53,7 +53,7 @@ export default function Home() {
         companyLogo: base64Data,
         createdDate: new Date(),
       }).then((res) => {
-        setAddCompanyShowModal(false) 
+        setAddCompanyShowModal(false)
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -73,28 +73,7 @@ export default function Home() {
       })
     }
   };
-  const addCategory = async () => {
-    console.log('çalıştı')
-    try {
-      const db = getFirestore();
-      await addDoc(collection(db, 'categories'), {
-        categoryId: 1,
-        categoryImage: '',
-        categoryName: categoryName,
-        companyId: '14473200005262533000-1689428624433',
-        itemList: [
-          {
-            itemId: 3,
-            itemImage: '',
-            itemName: 'test iitem name',
-            itemPrice: '100'
-          }
-        ]
-      });
-    } catch (error) {
-      console.error('Kaydetme hatası:', error);
-    }
-  };
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -124,38 +103,39 @@ export default function Home() {
             <Container className='company'>
               <div className='company-header'>
                 <div className='company-title'>Company List</div>
-                <Button variant="light" onClick={() => setAddCompanyShowModal(true)}>Add Company</Button>
-                <Button variant="light" onClick={() => setAddCategoryShowModal(true)}>Add Category</Button>
+
               </div>
               <div className='company-page'>
-                {data.map((item, index) => (
-                  <Link href={`screens/category/${item.companyId}`}>
-                    <Card>
-                      <Card.Img variant="top" src={item.companyLogo} />
-                      <Card.Title className='company-page-title'> {item.companyName} </Card.Title>
-                      <Card.Text> <em>{item.companyContent}</em>
-                      </Card.Text>
-                    </Card>
-                  </Link>
-                ))}
 
+                <Row xs={1} sm={2} md={3} lg={4}>
+                  <Col>
+                    <Button className='company-page-add-company-btn' variant="success" onClick={() => setAddCompanyShowModal(true)}><h4 > <Image className='company-page-plus' src={plus} alt="plus" /> Add Company</h4></Button>
+                  </Col>
+
+                  {data.map((item) => (
+                    <Col key={item.companyId}>
+                      <Link className='company-page-link' href={`screens/category/${item.companyId}`}>
+                        <Card>
+                          <Card.Img variant="top" src={item.companyLogo} />
+                          <Card.Body>
+                            <Card.Title>{item.companyName}</Card.Title>
+                            <Card.Text>
+                              <em>
+                                {item.companyContent.length > 150
+                                  ? item.companyContent.substring(0, 150) + '...'
+                                  : item.companyContent
+                                }
+                              </em>
+                            </Card.Text>
+                          </Card.Body>
+                        </Card>
+                      </Link>
+                    </Col>
+                  ))}
+                </Row>
               </div>
 
-              <Modal show={showAddCategoryModal} onHide={() => setAddCategoryShowModal(false)}>
-                <Modal.Header closeButton>
-                  <Modal.Title>Add Category</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
 
-                  <FloatingLabel label="Category Name" className="mb-1">
-                    <Form.Control type="text" placeholder="Category Name" onChange={(e) => setCategoryName(e.target.value)} />
-                  </FloatingLabel>
-
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button variant="success" onClick={addCategory}>Add Category</Button>
-                </Modal.Footer>
-              </Modal>
 
               <Modal show={showAddCompanyModal} onHide={() => setAddCompanyShowModal(false)}>
                 <Modal.Header closeButton>
@@ -183,9 +163,6 @@ export default function Home() {
                   <FloatingLabel label="Logo" className="mb-1">
                     <Form.Control type="file" onChange={handleFileChange} />
                   </FloatingLabel>
-
-                  {/* {selectedFile && <img src={URL.createObjectURL(selectedFile)} alt="Seçilen Dosya" />}
-            {base64Data && <p>Base64 verisi: {base64Data}</p>} */}
                 </Modal.Body>
                 <Modal.Footer>
                   <Button variant="success" onClick={addCompany}>Add Company</Button>

@@ -2,8 +2,11 @@
 
     &-page {
         display: flex;
-        gap: 20px;
-        flex-direction: column;
+        flex-wrap: wrap;
+
+        .col {
+            margin-top: 15px;
+        }
 
         &-title {
             margin-bottom: 0 !important;
@@ -12,36 +15,50 @@
             text-transform: uppercase;
         }
 
-        a {
+        &-link {
             text-decoration: none;
         }
 
+
+        &-add-company-btn {
+            height: 260px;
+            flex: 0 1 23%;
+
+            h4 {
+                display: flex;
+                gap: 10px;
+                flex-direction: column;
+                align-items: center;
+                color: black;
+            }
+
+            img {
+                max-width: 40%;
+                border-radius: 100%;
+                padding: 2px;
+                height: 100px;
+            }
+        }
+
         .card {
+            padding: 8px;
+            height: 260px;
             display: flex;
             align-items: center;
-            height: 4rem;
-            cursor: pointer;
-            flex-direction: row;
-            gap: 20px;
 
             &-body {
-                flex: 0 !important;
-                padding: 5px 0 !important;
-                position: absolute;
-                left: 0;
-                bottom: 0;
                 width: 100%;
-                background: rgba(0, 0, 0, 0.5);
-                color: white;
-                text-align: center;
             }
 
             &-text {
                 font-size: 12px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                // white-space: nowrap; 
             }
 
             &-img-top {
-                max-width: 4rem;
+                max-width: 40%;
                 border-radius: 100%;
                 padding: 2px;
             }
@@ -55,11 +72,12 @@
         margin: 10px 0;
         color: rgb(236, 236, 245);
     }
+
     &-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
     }
-  
-      
+
+
 }
