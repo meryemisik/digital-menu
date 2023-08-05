@@ -26,13 +26,11 @@ body {
         display: flex;
         gap: 20px;
 
-        &-title {}
     }
 
     .card {
-        width: 20%;
         position: relative;
-
+        height: 260px;
         &-title {
             position: absolute;
             bottom: 0;

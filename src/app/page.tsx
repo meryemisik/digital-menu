@@ -8,7 +8,7 @@ import Loading from './components/loading'
 import plus from '../asset/images/plus.svg'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../asset/scss/companies.scss'
-import Swal from 'sweetalert2/dist/sweetalert2.js'
+import Swal from 'sweetalert2';
 
 import 'sweetalert2/src/sweetalert2.scss'
 

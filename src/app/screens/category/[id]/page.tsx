@@ -76,20 +76,20 @@ export default function Page({ params }: { params: { id: string } }) {
             console.error('Kaydetme hatası:', error);
         }
     };
-
+    const fetchData = async () => {
+        try {
+            const companyCol = collection(db, "categories");
+            const querySnapshot = await getDocs(companyCol);
+            const data = querySnapshot.docs.map((doc) => doc.data());
+            const categoryList = data;
+            const filteredData = categoryList.filter((item) => item.companyId === params.id);
+            setData(filteredData);
+        } catch (error) {
+            console.error("error", error);
+        }
+    };
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const companyCol = collection(db, "categories");
-                const querySnapshot = await getDocs(companyCol);
-                const data = querySnapshot.docs.map((doc) => doc.data());
-                const categoryList = data;
-                const filteredData = categoryList.filter((item) => item.companyId === params.id);
-                setData(filteredData);
-            } catch (error) {
-                console.error("error", error);
-            }
-        };
+        
         fetchData();
     }, []);
     return (
