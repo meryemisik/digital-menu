@@ -9,6 +9,7 @@ import plus from '../asset/images/plus.svg'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../asset/scss/companies.scss'
 import Swal from 'sweetalert2';
+import Title from './components/title'
 
 import 'sweetalert2/src/sweetalert2.scss'
 
@@ -73,19 +74,18 @@ export default function Home() {
       })
     }
   };
-
+  const fetchData = async () => {
+    const companyCol = collection(db, "companies");
+    const querySnapshot = await getDocs(companyCol);
+    const data = querySnapshot.docs.map((doc) => doc.data());
+    setData(data);
+    setIsLoading(false);
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const companyCol = collection(db, "companies");
-      const querySnapshot = await getDocs(companyCol);
-      const data = querySnapshot.docs.map((doc) => doc.data());
-      setData(data);
-      setIsLoading(false);
-    };
-
     fetchData();
   }, [addCompany]);
+
   return (
     <>
 
@@ -102,7 +102,7 @@ export default function Home() {
             </Navbar>
             <Container className='company'>
               <div className='company-header'>
-                <div className='company-title'>Company List</div>
+                <div className='company-title'>Company List</div>  <Title title="Ana Sayfa" />
 
               </div>
               <div className='company-page'>

@@ -89,7 +89,6 @@ export default function Page({ params }: { params: { id: string } }) {
         }
     };
     useEffect(() => {
-        
         fetchData();
     }, []);
     return (

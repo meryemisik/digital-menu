@@ -4,11 +4,13 @@ import { Card, Container, Navbar, Row, Col } from 'react-bootstrap';
 import { db, collection, getDocs } from '@/firebase-config';
 import Link from 'next/link';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import App from '../../../_app'
 
 export default function CategoryDetailPage({ params }: { params: { id: string } }) {
   const [data, setData] = useState<any[]>([]);
 
   const fetchData = async () => {
+      console.log('app', App)
     try {
       const companyCol = collection(db, "categories");
       const querySnapshot = await getDocs(companyCol);
